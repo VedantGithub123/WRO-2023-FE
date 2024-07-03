@@ -9,18 +9,9 @@ To program our robot, we use the Arduino IDE and code an Arduino Sketch based on
 ## Organization of Code
 Our code follows Object Oriented Programming conventions, where we use one program type for each and every sensor and component of our robot. The library we use to interact with our electronic components are: Lego Mindstorms
 ### Chassis Class
-In the chassis class, five-member variables are utilized to control the driving motors and the steering. These variables are "enA", which is used to store the pin that is connected to the enable port on the motor controller, and "in1" and "in2", which are used to store the pins connected to the inputs on the motor controller. We also use "sPort," which holds the pin connected to the micro servo. Finally, we have a steering variable, an instance of the steering class imported from the Servo.h library, which is used to control the micro servo we are using.
-
-The constructor for this class takes in four inputs which are the ports used for the chassis, as mentioned above. These inputs are then stored in the member variables for later use in the class instance. 
-
-The first method in our class is the move function which takes in an integer speed and limits it from -255 to 255. It then goes through some logic determining which inputs to turn on or off to drive in the right direction. In the following code, we check if the speed is zero, positive, or negative and set the input pins accordingly.
-`if (speed == 0) { digitalWrite(in1, LOW); digitalWrite(in2, LOW); } else if (speed > 0) { digitalWrite(in1, HIGH); digitalWrite(in2, LOW); } else { digitalWrite(in1, LOW); digitalWrite(in2, HIGH); }`
-
-The second method in our class is the steer function which steers our servo motor to the right angle. This method limits an angle variable to a specific range and then writes that range to the servo motor's input pin. The following code limits the range to -70 to 70, adding 94 as an offset.
-`steering.write(angle / abs(angle) * min(abs(angle), 70) + 94);`
-
-The third and final method in our class attaches the servo port to the instance of the Servo class defined in the chassis class. This is done by implementing the following code.
-`steering.attach(sPort);`
+In the chassis class, (ignition) blocks are used to control the drive and steering motors. These are "speed, timing", which is used to control the drive motor as the steering motor we are using.
+The first method in our class is the motion function, which takes a whole speed accompanied by a turning angle of 10° to 20°. 
+The second method in our class is the steering function, which steers our car at the correct angle. This method limits an angle variable to a specific range and then writes that range to the motor input pin.
 
 ### rgbSensor Class
 The rgbSensor class interfaces with the TCS34725 RGB sensor using I2C (Inter-Integrated Circuit) communication to get the RGB values from the sensor. This class has one member variable, the "Adafruit_TCS34725 tcs", which controls the RGB sensor.
