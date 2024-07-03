@@ -12,11 +12,11 @@ This repository contains engineering materials of a self-driven vehicle model pa
 
 
 ### Who We Are
-Team V^3 is an aspiring group of high school and university students who aim to be leaders in the future of autonomous vehicles. By taking the initiative to take part in the WRO Future Engineers challenge, we hope to gain experience in this field of engineering and problem-solving. We have been exposed to many robotic and logical challenges through Zebra Robotics, where we participated in many problems, such as WRO Robomissions, FIRST LEGO League, and VEX Robotics Competition. Our goals for this season are the following:
-- Gain knowledge in the field of autonomous vehicles
-- Expose ourselves to the nuances of software organization (i.e. Github)
-- Become proficient in the skills regarding electronic components
-- Learn how to coordinate and work as a team to solve the problem with innovation and creativity
+Team TSBV is a group of high school students who aspire to be leaders in the future of autonomous vehicles. By taking the initiative to participate in the WRO Future Engineers challenge, we hope to gain experience in this field of engineering and problem solving. We have been exposed to many robotic and logic challenges, the objectives for this season are as follows:
+- Gain knowledge in the field of autonomous vehicles.
+- Expose us to the nuances of software organization (i.e. Github).
+- Acquire competency in skills related to electronic components.
+- Learn how to coordinate and work as a team to solve the problem with innovation and creativity.
 
 ### Our Robot & Iterations
 Our team has designed a four-wheel rear-driver autonomous vehicle to complete the 2023 WRO Future Engineers challenge. When making our robot, we wanted to be able to rapidly iterate and make changes whenever they were needed. To accomplish this, our chassis and frame are almost entirely made of LEGO Technic parts and any remaining additions and part adapters (i.e., motor adapters, sensors, etc.) were designed on SolidWorks and Fusion 360 CAD Software and were printed using PLA filament on Anycubic Kobra 3D printers. Our current robot is a small and compact vehicle causing it to be highly maneuverable, allowing us to avoid obstacles effortlessly. This vehicle is powered by 300rpm 6V Micro Gear Box DC motors, allowing us to keep a compact and lightweight robot. To steer this chassis, we are using the ES08MA Metal Analog Servo, which has an ample amount of torque and strength. This allows us to make sharp turns whenever needed.
