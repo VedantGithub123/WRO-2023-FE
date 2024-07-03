@@ -19,66 +19,9 @@ Team TSBV is a group of high school students who aspire to be leaders in the fut
 - Learn how to coordinate and work as a team to solve the problem with innovation and creativity.
 
 ### Our Robot & Iterations
-Our team has designed a four-wheel rear-driver autonomous vehicle to complete the 2023 WRO Future Engineers challenge. When making our robot, we wanted to be able to rapidly iterate and make changes whenever they were needed. To accomplish this, our chassis and frame are almost entirely made of LEGO Technic parts and any remaining additions and part adapters (i.e., motor adapters, sensors, etc.) were designed on SolidWorks and Fusion 360 CAD Software and were printed using PLA filament on Anycubic Kobra 3D printers. Our current robot is a small and compact vehicle causing it to be highly maneuverable, allowing us to avoid obstacles effortlessly. This vehicle is powered by 300rpm 6V Micro Gear Box DC motors, allowing us to keep a compact and lightweight robot. To steer this chassis, we are using the ES08MA Metal Analog Servo, which has an ample amount of torque and strength. This allows us to make sharp turns whenever needed.
-Prior to making this robot, our team went through various different iterations and prototypes where we learnt many lessons about what our optimal robot should consist of. These lessons are the following:
-- Be small and compact
-- Effectively use sensors to identify our location and our ideal path
-- Speed is not the first priority for this challenges
-- Maneuverability is key to solving the obstacle challenge
-
-One of these was a larger robot with the usage of many more sensors and parts. However, its large nature at 30x20x30cm caused it to be difficult to maneuver and control. All of our efforts were in vain as we faced many hardships and problems when trying to program that robot. Our robot’s turning radius was too large, and it was unable to maneuver around the obstacles while our sensors were placed inconveniently and were unable to correctly and quickly construct an efficient path for our robot to take. We realized that many parts of our robot were unnecessary, especially the sheer size of it, and we ultimately decided to do a complete redesign which led to our final robot design. A summary of the reasons for our redesign can be found below:
-
-|   | Pros | Cons |
-| - | ----------| ----------|
-| Old Robot | <ul><li>Allows for the attachment of larger sensors</li><li>Faster robot due to the larger, more powerful motors</li></ul> | <ul><li>Bad maneuverability due to size, causing a larger turning radius</li><li>Excessive use of unnecessary sensors</li><li>Not enough ports due to the sheer number of sensors</li></ul> |
-| New Robot | <ul><li>Smaller and more compact</li><li>Better maneuverability and sharper turning radius</li><li>More effective use of sensors and gets rid of any unnecessary parts</li></ul> | <ul><li>Slower speed due to less powerful motors</li><li>Restrictions to the size of sensors and parts we can use</li></ul> |
-
-| Old Robot | New Robot |
-| --------- | --------- |
-| <img src="https://drive.google.com/uc?id=1RlZYskqQS1ByvdWUU-VYG0KftsT1Hhgg" width="300" height="200" /> | <img src="https://drive.google.com/uc?id=1vywV_2QEjR2MpFHMMntFpNzQ3LMgPVq5" width="300" height="200" /> |
-
-### Electrical Components
-Our chassis is controlled by the Arduino Nano microcontroller, which gets information from various sensors and uses said information to control the motors using an L298N motor controller board. The sensors that we are using for our vehicle are the following:
-- Pixycam 2.1
-- TCS34725 RGB Sensor
-
-- HW-201 IR Sensors
-- GP2Y0A02YK0F IR Range Sensor
-- L3G4200D 3-Axis Gyro
-
-We use the Pixycam 2.1 to identify the locations of the obstacles and effectively avoid them. The TCS34725 RGB sensor tells the microcontroller when it reaches a corner. Both IR sensors are used to detect the walls on the side and on the front. Finally, we use the L3G4200D gyro to know which direction we are facing. More information about our robot’s electrical components can be found in the README file in the electrical folder.
-
-### Strategy and Code
-For the open challenge, our sensors are strategically placed in ways that allow us to detect walls at a 45° or less angle. This allows us to adjust accurately based on the distance from the wall, ultimately providing an optimal path to solve this challenge. In order to measure the number of laps we do, we use the RGB sensor to count the number of lines passed and then our robot stops after some time once 12 lines have been measured. This is implemented in the code by using the following lines:
-
-if (cornerCount==12)
-
-{
-
-  endTime = millis()+5000;
-  
-}
-
-The cornerCount variable keeps track of how many corners the robot has passed during its run. The number is twelve as the square-shaped mat has 4 corners, and the robot must complete three laps.
-We have two strategies for the obstacle challenge. The first of which only focuses on one block and a time and avoids it. The other strategy involves planning a route for each stretch of the lap and getting the robot to follow that path. Some code for the first challenge is the following:
-
-if (closeBlock.m_signature==1)
-
-{
-
-target = (207-closeBlock.m_y)/1.3-15;
-
-}else
-
-{
-
-target = 315.0-(207-closeBlock.m_y)/1.3+15;
-
-}
-
-err = -150.0*(closeBlock.m_x-target);
-
-This code gets the closest block and sets the target position of that block onto either side of the robot based on the color of the block.
-
-All in all, this robot is a statement to our team’s adaptability and problem solving skills as we were able to completely redesign and program a new and more compact robot after learning from our previous mistakes. We hope that this robot and our hard work will lead us to success and we look forward to competing!
-
+The robot has different components, such as sensors and motors. We must understand that in order to use the sensors and motors that will be mentioned later, we need something with which we can control or connect to get the data or control the robot, for the same is used an intelogente brick which would be the LEGO MINDSTORMS EV3, which will control all the actions of the robot and will indicate the realization of others in accordance with the purpose we want to achieve, in addition, is the main component with which I will be collecting information that will be used during programming, apart from the above mentioned, there are other components and sensors that help me to collect important data, on the other hand, we have the engines, which 1 will help me to form the traction of the robot, which simply will make it move forward and backward, this goes hand in hand with another engine direction which will allow me to control the trajectory of the robot and change it. Other components of the robot are the sensors, which were selected with different objectives, starting with the ultrasonic sensor that will allow us to measure the distance of the robot with reference to an object, to use this data to prevent it from colliding with it, in addition to the color sensor that will support us in helping the robot to select which direction to move according to the condition. 
+It should be noted that everything, both sensors and motors, are connected to the Smart Brick, which will control everything.
+Related to the programming of what the robot must do, we have worked and practiced the rounds in different ways, given the case that the direction of rotation and position is drawn at the time, the robot is ready to face the situation wherever it starts and how it starts.
+To summarize the execution of what the robot has to do, we can divide it into rounds:
+- In a first round the robot, depending on the position, will usually align its direction and center itself in the middle of the track, to turn its tires at an angle that will allow it to move without going off or colliding with the track, in addition to activating the motor for a certain time that will allow it to give the same 3 laps.
+- In the second round, the robot will keep in a constant cycle evaluating different factors by means of the sensors, such as the distance of the objects, as well as their color, in addition that within this cycle the robot will have conditions that will tell it when to do an action, such as turning when it is at a certain distance and knowing the direction to turn depending on the color.
