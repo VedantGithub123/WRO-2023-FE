@@ -67,11 +67,6 @@ The final function in the class is the "updateGyro" function which updates the a
 ### Camera Class
 The Camera class interfaces with the PixyCam 2.1 through SPI (Serial Peripheral Interface) and gets the detected blocks. The member variable in this function is the "pixy" variable, an instance of the Pixy2 class provided by the "Pixy2.h" library. 
 
-The first method in the class is the "setup" function which initializes the PixyCam 2.1. This is done by using the "pixy.init()" function provided in the library.
-
-The second method in the Camera class is the "getClosest" function which returns the closest signature to the robot. The PixyCam 2.1 has the closest signature as the first element in the array of blocks, so we return that first signature as shown in the following code `pixy.ccc.getBlocks(); return pixy.ccc.blocks[0];`
-
-The final method in the class is the "getClosestBlock" function which gets the closest signature which is green or red. This is done to ensure that we do not return the line. We do this by going through the array of blocks, and if the signature is less than or equal to two, we return that block.
 
 ## Setup Code
 In the setup of our program, we have a multitude of global functions and variables that we use in our main program. 
