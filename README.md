@@ -1,7 +1,7 @@
-WRO Future Engineers Team V^3 Engineering Documentation
+WRO Future Engineers Team TSBV Engineering Documentation
 ====
 
-This repository contains engineering materials of a self-driven vehicle model participating in the WRO Future Engineers competition in the 2023 season. More information on each subcomponent of the robot is placed in the README.md files in each folder.
+This repository contains engineering materials of a self-driven vehicle model participating in the WRO Future Engineers competition in the 2024 season. More information on each subcomponent of the robot is placed in the README.md files in each folder.
 
 ## Content
 * `build` contains documentation about our chassis and material choice
