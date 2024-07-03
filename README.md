@@ -10,14 +10,6 @@ This repository contains engineering materials of a self-driven vehicle model pa
 * `strategy` contains documentation and diagrams explaining our approach to the problem
 * `video` contains the video.md file with the link to a video where the driving demonstration exists
 
-## Rubric Requirements
-* `Mobility Management` is found in `build`, `electrical`, and `models`
-* `Power and Sense Management` is found in `electrical`
-* `Obstacle Management` is found in `strategy` and `src`
-* `Pictures - Team and Vehicle` is found in `photos`
-* `Performance Videos` is found in `video`
-* `Engineering Factor` is found in `build` and `README`
-
 
 ### Who We Are
 Team V^3 is an aspiring group of high school and university students who aim to be leaders in the future of autonomous vehicles. By taking the initiative to take part in the WRO Future Engineers challenge, we hope to gain experience in this field of engineering and problem-solving. We have been exposed to many robotic and logical challenges through Zebra Robotics, where we participated in many problems, such as WRO Robomissions, FIRST LEGO League, and VEX Robotics Competition. Our goals for this season are the following:
