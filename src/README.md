@@ -7,12 +7,7 @@ This directory contains the code required for our robot and explains it
 To program our robot, we use the Arduino IDE and code an Arduino Sketch based on C++. Compiling and uploading our code is a simple process, as there are two buttons to help verify and upload our code. The click of this button will automatically compile and upload our code to the Arduino Nano microcontroller.
 
 ## Organization of Code
-Our code follows Object-Oriented Programming (OOP) conventions, where we utilize classes for each and every one of our robot's sensors and components. The libraries that we are using to interface with our electronic components are:
-Servo.h (For controlling the servo motor)
-Adafruit_TCS34725.h (For reading the RGB sensor)
-Adafruit_Sensor.h (For reading the gyro sensor)
-Wire.h (For reading the gyro sensor)
-Pixy2.h (For reading the Pixy camera)
+Our code follows Object Oriented Programming conventions, where we use one program type for each and every sensor and component of our robot. The library we use to interact with our electronic components are: Lego Mindstorms
 ### Chassis Class
 In the chassis class, five-member variables are utilized to control the driving motors and the steering. These variables are "enA", which is used to store the pin that is connected to the enable port on the motor controller, and "in1" and "in2", which are used to store the pins connected to the inputs on the motor controller. We also use "sPort," which holds the pin connected to the micro servo. Finally, we have a steering variable, an instance of the steering class imported from the Servo.h library, which is used to control the micro servo we are using.
 
