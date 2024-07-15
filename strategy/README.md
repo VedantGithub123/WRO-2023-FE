@@ -16,7 +16,7 @@ In the open challenge, the only changes to the field are the size of the interio
 
 ## Obstacle Challenge Strategy
 
-For the obstacle challenge, we have two strategies for approaching the problem. The first one is to only consider the first obstacle and act according to that, while the other is to plan a path for one side of the round and follow that. We are working with both strategies and testing both simultaneously to determine the better strategy. To detect the obstacles, we are using the Pixycam 2.1, which gives a list of objects to the Arduino Nano.
+For the obstacle challenge, we have two strategies for approaching the problem. The first one is to only consider the first obstacle and act according to that, while the other is to plan a path for one side of the round and follow that. We are working with both strategies and testing both simultaneously to determine the better strategy. To detect the obstacles, we are using the Pixycam 2.1.
 
 ### Strategy 1
 
