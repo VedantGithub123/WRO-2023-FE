@@ -5,7 +5,7 @@ This directory consists of an explanation and diagrams of our strategy for both 
 
 ## Open Challenge Strategy
 
-In the open challenge, the only changes to the field are the size of the interior walls. In order to combat these changes, we will be using IR distance sensors to identify the distance from the walls. By having multiple distance sensors, the robot can accurately calculate the distance to the surrounding walls. The robot can use these sensor readings to correct itself and make sure it goes parallel to the wall. The robot will know when to turn due to the usage of a RGB sensor which detects the colored lines in the corner. This will also allow us to keep track of the number of laps we complete so we know when to end. Below are diagrams and flow charts demonstrating the process.
+🥸In the open challenge, the only changes in the field are the size of the interior walls. To counter these changes, we have implemented a somewhat complicated strategy that can help us achieve our objective. We've devised a method for the robot to simply circle around the square, avoiding collisions with the walls and the central block. With multiple walls, for the robot to successfully perform this process, we must accurately calculate the degrees, time, and distance it should turn to create a perfect circular motion without hitting the surrounding walls. Our strategy is based more on experimentation, objective observation, and applicable theoretical models. The robot will need to align its wheels and then execute the assigned degrees to perform a perfect turn without hitting any walls. This will also allow us to track the number of laps completed to know when to finish. Below are diagrams and flowcharts demonstrating the process.
 | Straight Movement | Turning |
 | ----------------- | ------- |
 | ![image](https://drive.google.com/uc?id=1sl-HCauvqxThJZm0eeGbrZbrhHrH50nJ) | ![image](https://drive.google.com/uc?id=1nIDDyOZn28JYcaWRNiBgwWf6LNt0vX17) |
@@ -17,7 +17,7 @@ For the obstacle challenge, we have two strategies for approaching the problem. 
 
 ### Strategy 1
 
-The first strategy to approach the obstacle challenge is to keep the closest color on the corresponding side of the robot. This is implemented by getting the x-position of the object on the camera and accordingly changing the steering to make sure the object is on the correct side. The turning and stopping will use the same logic as the open challenge. In order to know how much to steer when we see the object, we will use a proportional control loop to ensure that our movements are efficient.
+💡💡The first strategy to approach the obstacle challenge is to keep the closest color on the corresponding side of the robot. This is implemented by getting the x-position of the object on the camera and accordingly changing the steering to make sure the object is on the correct side. The turning and stopping will use the same logic as the open challenge. In order to know how much to steer when we see the object, we will use a proportional control loop to ensure that our movements are efficient.
 
 | Obstacle Challenge Simple Approach |
 | ---------------------------------- |
