@@ -28,5 +28,14 @@ Our steering mechanism is a four-bar with free-spinning wheels mounted on it. Th
 | ![image](https://drive.google.com/uc?id=16rHeZFgRDMQf3lHZIuXqODQA6GuB-DN7) |
 
 ## Materials
+Construction Steps
 
-When creating our robot, we wanted to be able to easily iterate and update the robot in many ways as we tested it. In order to achieve these goals, we decided to use LEGO Technic pieces to construct the majority of our robot. LEGO technic was the perfect choice for us since our robotics centre, Zebra Robotics, focuses on LEGO robotics and competitions related to that, so we have an abundance of LEGO technic pieces. Our team members also have extensive experience in working with LEGO Technic parts and completing challenges with them. In order to attach the electronic components onto our chassis, we 3D printed mounts for the components, as they allowed us to smoothly integrate the non-LEGO parts with the LEGO parts.
+Installation of the EV3 Block: We place the programable EV3 block in the center of the structure to maintain a proper balance.
+
+Engine Installation: We use two large EV3 engines, one for each rear wheel. This provides us with the power needed to move the robot and the ability to control each wheel separately for direction.
+
+Wheel Fixation: We place standard Lego wheels on the axles connected to the engines. We fasten the front wheels to provide stability.
+
+Chassis Structure: We use Lego structural parts to create a robust chassis that supports the weight of the EV3 block and the engines. We ensure that the chassis has enough space for the installation of the battery and the necessary wiring.
+
+Cable and Connections: We connect the engines to the EV3 block using the cables provided in the kit. We make sure the cables are properly subjected and organized to avoid clutches.
