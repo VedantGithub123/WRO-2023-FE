@@ -10,9 +10,6 @@ In the open challenge, the only changes to the field are the size of the interio
 | ----------------- | ------- |
 | ![image](https://drive.google.com/uc?id=1sl-HCauvqxThJZm0eeGbrZbrhHrH50nJ) | ![image](https://drive.google.com/uc?id=1nIDDyOZn28JYcaWRNiBgwWf6LNt0vX17) |
 
-| Open Challenge Flowchart |
-| ------------------------ |
-| ![image](https://drive.google.com/uc?id=1_4qiJSqqLnAqw7ilf54cnIb5HE8X9X17) |
 
 ## Obstacle Challenge Strategy
 
