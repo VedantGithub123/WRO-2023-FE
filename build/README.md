@@ -31,54 +31,11 @@ Our steering mechanism is a four-bar with free-spinning wheels mounted on it. Th
 Movement Calculation
 
 Without the use of sensors, we rely on accurate calculations to control the movement of the robot. We use the rotation degrees of the engines to determine the distance traveled and the time required for each movement.
+
 Distance formula
-
-Distance
-
-=
-
-Wheel Circumference
-
-×
-
-Engine Revolutions
-
 Distance=Wheel Circumference×Engine Revolutions
 
 
-
-
-Formula for the Tour
-
-To calculate the angle of rotation:
-
-
-
-
-A
-
-ˊ
-
-turning angle
-
-=
-
-Speed difference between engines
-
-×
-
-Time
-
-Rotary Radio
-
-Aˊ
-angle of rotation= 
-Rotary Radio
-
-Speed difference between engines×Time
-Programming of the Movement
-
-We use the EV3-G programming environment to write programs that control engines. Through tests and adjustments, we fine-tune the parameters to the desired movements with accuracy.
 ## Materials
 Construction Steps
 
