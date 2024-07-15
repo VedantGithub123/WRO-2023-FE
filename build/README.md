@@ -21,7 +21,16 @@ Our robot is a four-wheeled vehicle which has a rear-wheel drive with steering i
 
 ## Steering
 
-Our steering mechanism is a four-bar with free-spinning wheels mounted on it. The motor will move the four-bar, which changes the angle of the wheels, which in turn changes the direction that the vehicle is travelling in. This type of steering proved to be the most efficient for our purposes and was also the easiest version for us to implement, as it only required a servo motor and a simple rig that connected the servo to the wheel axles. The rig was 3D printed along with the servo mount as one piece and had a LEGO axle-shaped cross hole that would turn along with the servo.
+Management System
+
+Principle of Differential Direction
+
+We use the principle of differential direction to control the movement of the robot. This system does not require a separate steering mechanism, but adjusts the speed of each engine to rotate.
+
+Operation
+Straight motion: To move the robot in a straight line, both engines rotate at the same speed.
+Left rotation: To rotate to the left, the right motor rotates faster than the left motor.
+Right rotation: To rotate to the right, the left engine rotates faster than the right engine
 
 | Four-Bar Steering Mechanism |
 | --------------------------- |
