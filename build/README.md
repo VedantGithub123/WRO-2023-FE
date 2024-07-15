@@ -1,7 +1,15 @@
 Build
 ====
 
-This directory consists of the different materials used to construct our robot, along with the reasoning for choosing our drivetrain. Attached is a pdf which includes the building instructions as well as a LDraw file of our robot. Our team created this model and instruction to allow easy replication of our robot if needed.
+To build our robot, we used the Lego Mindstorms EV3 kit and some additional elements. The list of materials is detailed below:
+Lego Mindstorms EV3 Kit:
+Programable Block EV3 Engine EV3 Large Sensors (not used in this project)
+Standard Wheels Lego
+Structural parts of Lego
+Axis and connectors Lego
+Rechargeable battery EV3 Connection CablesAdditional Items:
+Additional Lego parts for structural reinforcement (if necessary)
+Basic construction tools (optional, to facilitate assembly)
 
 ## Chassis Type & Explanation
 
