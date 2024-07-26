@@ -6,9 +6,9 @@ This directory consists of an explanation and diagrams of our strategy for both 
 ## Open Challenge Strategy
 
 🥸In the open challenge, the only changes in the field are the size of the interior walls. To counter these changes, we have implemented a somewhat complicated strategy that can help us achieve our objective. We've devised a method for the robot to simply circle around the square, avoiding collisions with the walls and the central block. With multiple walls, for the robot to successfully perform this process, we must accurately calculate the degrees, time, and distance it should turn to create a perfect circular motion without hitting the surrounding walls. Our strategy is based more on experimentation, objective observation, and applicable theoretical models. The robot will need to align its wheels and then execute the assigned degrees to perform a perfect turn without hitting any walls. This will also allow us to track the number of laps completed to know when to finish. Below are diagrams and flowcharts demonstrating the process.
-| Straight Movement | Turning |
-| ----------------- | ------- |
-| ![image](https://drive.google.com/uc?id=1sl-HCauvqxThJZm0eeGbrZbrhHrH50nJ) | ![image](https://drive.google.com/uc?id=1nIDDyOZn28JYcaWRNiBgwWf6LNt0vX17) |
+| Straight Movement | 
+| ----------------- | 
+| ![image](https://drive.google.com/file/d/1jEA10DPxHYXRXO9ugrOH5-i7pBLb90nu/view?usp=drive_link) | 
 
 
 ## Obstacle Challenge Strategy
