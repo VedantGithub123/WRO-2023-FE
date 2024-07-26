@@ -15,9 +15,6 @@ Basic construction tools (optional, to facilitate assembly)
 
 Our robot is a four-wheeled vehicle which has a rear-wheel drive with steering in the front. We decided to implement a simple chassis since that would reduce the amount of complexity, and therefore chances of failure. In order to keep the drivetrain simple and efficient, we made sure not to have the steering mechanism on the same set of wheels as the driving wheels. This solves the problem of spacing, as the steering motor and the drive motors do not have to be on the same set of wheels. Our decision to do this meant that we could only have two options for driving which were front-wheel drive with steering in the back or a rear-wheel drive with steering in the front. We ultimately chose a drivetrain that had real-wheel drive with front-wheel steering as that made the robot more familiar to use, given our experience using other rear-wheel driven LEGO robots.
 
-| Rear-Wheel Drive | Front Wheel Drive |
-| ---------------- | ----------------- |
-| ![image](https://drive.google.com/uc?id=1Jf-CvguoRfaVFCoVMNndH-xFYlsa_ZU-) | ![image](https://drive.google.com/uc?id=1VLR8ZvrXIQMaj_SNlWJ1fxSpYCzsmNQD) |
 
 ## Steering
 
@@ -32,9 +29,6 @@ Straight motion: To move the robot in a straight line, both engines rotate at th
 Left rotation: To rotate to the left, the right motor rotates faster than the left motor.
 Right rotation: To rotate to the right, the left engine rotates faster than the right engine
 
-| Four-Bar Steering Mechanism |
-| --------------------------- |
-| ![image](https://drive.google.com/uc?id=16rHeZFgRDMQf3lHZIuXqODQA6GuB-DN7) |
 
 ## Movement
 Movement Calculation
