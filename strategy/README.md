@@ -6,9 +6,6 @@ This directory consists of an explanation and diagrams of our strategy for both 
 ## Open Challenge Strategy
 
 🥸In the open challenge, the only changes in the field are the size of the interior walls. To counter these changes, we have implemented a somewhat complicated strategy that can help us achieve our objective. We've devised a method for the robot to simply circle around the square, avoiding collisions with the walls and the central block. With multiple walls, for the robot to successfully perform this process, we must accurately calculate the degrees, time, and distance it should turn to create a perfect circular motion without hitting the surrounding walls. Our strategy is based more on experimentation, objective observation, and applicable theoretical models. The robot will need to align its wheels and then execute the assigned degrees to perform a perfect turn without hitting any walls. This will also allow us to track the number of laps completed to know when to finish. Below are diagrams and flowcharts demonstrating the process.
-| Straight Movement | 
-| ----------------- | 
-| ![image](https://drive.google.com/file/d/1jEA10DPxHYXRXO9ugrOH5-i7pBLb90nu/view?usp=drive_link) | 
 
 
 ## Obstacle Challenge Strategy
@@ -19,14 +16,8 @@ For the obstacle challenge, we have two strategies for approaching the problem. 
 
 💡💡The first strategy to approach the obstacle challenge is to keep the closest color on the corresponding side of the robot. This is implemented by getting the x-position of the object on the camera and accordingly changing the steering to make sure the object is on the correct side. The turning and stopping will use the same logic as the open challenge. In order to know how much to steer when we see the object, we will use a proportional control loop to ensure that our movements are efficient.
 
-| Obstacle Challenge Simple Approach |
-| ---------------------------------- |
-| ![image](https://drive.google.com/uc?id=18gsX1JlRYennzsx7GrNMAYbRCy7gM8yc) |
 
 ### Strategy 2
 
 Our second strategy for the obstacle challenge is to plan a path for each stretch of the mat and get the robot to follow that path. By having the current position, current heading, target position, and target heading, we can generate a polynomial to fit these parameters. We do this with multiple target points to create a target path which we aim to follow and steer the robot so it aims to move in the direction of the next point. This path takes into account the position of the obstacles and maps points that avoid them. We then repeat this process until the three rounds are over. 
 
-| Obstacle Challenge Complicated Approach |
-| ---------------------------------- |
-| ![image](https://drive.google.com/uc?id=1dFHU8QVgc9cSyHeG_vhY4EH8VAXhCVJk) |
