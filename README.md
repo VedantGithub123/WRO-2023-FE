@@ -1,63 +1,173 @@
-WRO Future Engineers Team TSBV Engineering Documentation
-====
+Aquí tienes la documentación en inglés:
 
-This repository contains engineering materials of a self-driven vehicle model participating in the WRO Future Engineers competition in the 2024 season. More information on each subcomponent of the robot is placed in the README.md files in each folder.
+---
 
-This repository contains engineering materials for a self-driven vehicle model participating in the WRO Future Engineers competition in the 2024 season. The build folder contains documentation about our chassis and material choices. The photos folder has two subfolders: one with team photos and another with robot photos. The src folder contains the control software code for all components programmed for the competition. The strategy folder includes documentation and diagrams explaining our approach to the problem. Lastly, the video folder includes the video.md file with the link to a driving demonstration video.
-## Content
-* `build` contains documentation about our chassis and material choice
-* `photos` contains two folders where one contains the team photos and the other contains the robot photos
-* `src` contains the code of control software for all components that were programmed to participate in the competition
-* `strategy` contains documentation and diagrams explaining our approach to the problem
-* `video` contains the video.md file with the link to a video where the driving demonstration exists
+# Documentation for WRO Future Engineers Category - LEGO Robot Inventor
+
+## Introduction
+
+This document details the configuration and programming of a robot based on the LEGO Robot Inventor (51515) for the "Future Engineers" category of the World Robot Olympiad (WRO). The challenge consists of two rounds: the first requires the robot to move along a square track, while the second round involves the robot detecting and avoiding obstacles of different colors, adjusting its path based on the detected color.
+
+## Project Objective
+
+The objective of this project is to design, build, and program a robot capable of navigating a square track and, in a second round, detecting and avoiding obstacles based on color. This involves using sensors and implementing programming logic that enables the robot to make autonomous decisions during its course.
+
+## Challenge Description
+
+In the "Future Engineers" category of the WRO, participants must develop a robot capable of performing specific tasks in a controlled environment. The challenge is divided into two rounds:
+
+1. **Round 1: Square Track Navigation**  
+   The robot must follow a square track, maintaining correct alignment and turning at the corners of the track.
+
+2. **Round 2: Color-Based Obstacle Avoidance**  
+   The robot must be able to detect green and red obstacles. Depending on the obstacle color, the robot should veer left (if the color is green) or right (if the color is red) before realigning and continuing its path.
+
+## Components and Hardware Configuration
+
+- **Main Controller**: MSHub (51515)
+- **Traction Motors**: Connected to ports C and D of the MSHub, responsible for forward and backward movement.
+- **Steering Motor**: Connected to port A, responsible for controlling the robot's direction.
+- **Distance Sensor**: Connected to port B, used to detect the proximity of obstacles.
+- **Color Sensor**: Connected to port F, used to identify the color of obstacles.
+
+## Mechanical Design
+
+The robot was designed using the LEGO Robot Inventor kit. The structure has been optimized to ensure stability and maneuverability on the competition track. The design includes a robust base to support the motors and sensors, focusing on keeping the center of gravity low to avoid tipping during turns.
+## Programming
+
+### Round 1: Square Track Navigation
+from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
+from mindstorms.control import wait_for_seconds, wait_until, Timer
+from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
+import math
+
+# Crear objetos
+hub = MSHub()
+motor_traction = Motor('C')
+motor_direction = Motor('B')
+sensor_ultrasonic = DistanceSensor('D')
+
+while True:
+    distance = sensor_ultrasonic.get_distance_cm()
+
+    if distance is not None and distance <= 30:
+        # Detener motor de tracción
+        motor_traction.stop()
+        wait_for_seconds(0.5)
+
+        # Girar motor de dirección a la izquierda (90 grados)
+        motor_direction.run_for_seconds(1, 100)
+        wait_for_seconds(0.5)
+        motor_direction.stop()
+
+        # Retroceder motor de tracción por 2 segundos
+        motor_traction.run_for_seconds(1.5, -35)
+        wait_for_seconds(0.5)
+        motor_traction.stop()
+
+        # Ajuste fino para realinear el robot hacia la izquierda
+        motor_direction.run_for_seconds(0.8, -80)# Este ajuste lo hará girar un poco hacia la derecha
+        wait_for_seconds(0.5)
+        motor_direction.stop()
+
+        # Avanzar motor de tracción por 2 segundos
+        motor_traction.run_for_seconds(1.7, 50)
+        wait_for_seconds(0.5)
+        motor_traction.stop()
+
+        # Realinear dirección completamente a la izquierda
+        motor_direction.run_for_seconds(0.5, 38)# Ajuste para alinearlo a la izquierda
+        wait_for_seconds(0.5)
+        motor_direction.stop()
+    else:
+        # Continuar avanzando si no hay objeto cercano
+        motor_traction.start_at_power(100)
+
+    # Espera un corto tiempo antes de verificar de nuevo
+    wait_for_seconds(0.1)
+
+### Round 2: Color-Based Obstacle Avoidance
+
+```python
+from mindstorms import MSHub, Motor, DistanceSensor, ColorSensor
+from mindstorms.control import wait_for_seconds
+
+# Create objects
+hub = MSHub()
+motor_traction = Motor('C')
+motor_direction = Motor('A')
+sensor_distance = DistanceSensor('B')
+sensor_color = ColorSensor('F')
+
+# Program to avoid obstacles based on detected color
+while True:
+    distance = sensor_distance.get_distance_cm()
+
+    if distance is not None and distance <= 30:
+        # Stop the traction motor
+        motor_traction.stop()
+        wait_for_seconds(0.5)
+
+        # Detect the color of the obstacle
+        color = sensor_color.get_color()
+
+        if color == 'green':
+            # Turn steering motor to the left
+            motor_direction.run_for_degrees(-90, 100)
+            wait_for_seconds(0.5)
+        elif color == 'red':
+            # Turn steering motor to the right
+            motor_direction.run_for_degrees(90, 100)
+            wait_for_seconds(0.5)
+
+        # Reverse traction motor to avoid the obstacle
+        motor_traction.run_for_seconds(1.5, -35)
+        wait_for_seconds(0.5)
+        motor_traction.stop()
+
+        # Realign direction forward
+        motor_direction.run_to_position(0, 'shortest path')
+        wait_for_seconds(0.5)
+
+        # Move traction motor forward to continue the path
+        motor_traction.start_at_power(50)
+        wait_for_seconds(2)
+        motor_traction.stop()
+    else:
+        # Continue moving if no object is nearby
+        motor_traction.start_at_power(75)
+
+    # Wait a short time before checking again
+    wait_for_seconds(0.1)
+```
 
 
-### Who We Are
-Team TSBV is a group of high school students aspiring to be future leaders in autonomous vehicle technology. By participating in the WRO Future Engineers challenge, we aim to gain valuable experience in engineering and problem-solving. Our objectives for this season include gaining knowledge in the field of autonomous vehicles, becoming familiar with software organization (e.g., GitHub), developing skills related to electronic components, and learning to coordinate and work as a team to solve problems with innovation and creativity.:
-- Gain knowledge in the field of autonomous vehicles.
-- Expose us to the nuances of software organization (i.e. Github).
-- Acquire competency in skills related to electronic components.
-- Learn how to coordinate and work as a team to solve the problem with innovation and creativity.
 
-### Our Robot & Iterations
-The robot comprises various components, including sensors and motors. The EV3 Intelligent Brick serves as the main controller, managing the motors and sensors and executing the programmed code. It connects via USB, Bluetooth, and Wi-Fi (with an additional adapter) and has four motor ports and four sensor ports. The motors include a traction motor for forward and backward movement and a steering motor to control the robot's trajectory. Among the sensors, the ultrasonic sensor measures the distance between the robot and objects, helping to avoid collisions, while the color sensor detects colors and aids the robot in making directional decisions based on environmental conditions.
-The robot has different components, such as sensors and motors. We must understand that in order to use the sensors and motors that will be mentioned later, we need something with which we can control or connect to get the data or control the robot, for the same is used an intelogente brick which would be the LEGO MINDSTORMS EV3, which will control all the actions of the robot and will indicate the realization of others in accordance with the purpose we want to achieve, in addition, is the main component with which I will be collecting information that will be used during programming, apart from the above mentioned, there are other components and sensors that help me to collect important data, on the other hand, we have the engines, which 1 will help me to form the traction of the robot, which simply will make it move forward and backward, this goes hand in hand with another engine direction which will allow me to control the trajectory of the robot and change it. Other components of the robot are the sensors, which were selected with different objectives, starting with the ultrasonic sensor that will allow us to measure the distance of the robot with reference to an object, to use this data to prevent it from colliding with it, in addition to the color sensor that will support us in helping the robot to select which direction to move according to the condition. 
-It should be noted that everything, both sensors and motors, are connected to the Smart Brick, which will control everything.
-Related to the programming of what the robot must do, we have worked and practiced the rounds in different ways, given the case that the direction of rotation and position is drawn at the time, the robot is ready to face the situation wherever it starts and how it starts.
-To summarize the execution of what the robot has to do, we can divide it into rounds:
-- In a first round the robot, depending on the position, will usually align its direction and center itself in the middle of the track, to turn its tires at an angle that will allow it to move without going off or colliding with the track, in addition to activating the motor for a certain time that will allow it to give the same 3 laps.
-- In the second round, the robot will keep in a constant cycle evaluating different factors by means of the sensors, such as the distance of the objects, as well as their color, in addition that within this cycle the robot will have conditions that will tell it when to do an action, such as turning when it is at a certain distance and knowing the direction to turn depending on the color.
-- 
-### Execution Strategy
-The robot's operation can be divided into different rounds. In the first round, the robot aligns itself in the center of the track and adjusts its tires at an angle that allows it to move without veering off or colliding with the track, activating the motor for a set time to complete three laps. In the second round, the robot enters a constant cycle, evaluating factors such as object distance and color. Based on this data, the robot performs specific actions, such as turning at a certain distance and determining the direction of the turn based on the detected color.
+## Testing and Adjustments
 
-### Conclusion
-The design and programming of our robot focus on precision and adaptability. By using sensors and motors controlled by the EV3 Intelligent Brick, our robot is prepared to handle various situations and meet the challenges of the WRO Future Engineers with efficiency and creativity.
+### Sensor Calibration
 
-### Demonstration Video
-To see the robot in action, check the video.md file in the video folder for the link to our driving demonstration.
+- **Distance Sensor**: Tests were conducted to adjust the detection distance. The sensor was calibrated to detect obstacles at 30 cm, allowing the robot to react in time.
+- **Color Sensor**: Tests were performed under different lighting conditions to ensure accurate detection of green and red colors.
 
-### Additional Features and Improvements
-To enhance our robot's performance and functionality, we have incorporated several additional features:
+### Movement Adjustments
 
-Advanced Algorithms: We have developed sophisticated algorithms to improve the robot's decision-making capabilities. These include obstacle avoidance, path planning, and real-time adjustments based on sensor feedback.
+Tests were carried out to calibrate the power and duration of turns as well as traction movements. Timing was adjusted according to the specific dimensions of the competition track.
 
-Modular Design: The robot is built with a modular design, allowing easy upgrades and replacements of components. This flexibility ensures that we can quickly adapt to new challenges or integrate better technologies as they become available.
+### Track Testing
 
-Battery Management: Efficient battery management systems have been implemented to ensure that the robot maintains optimal power levels throughout its operation. This includes monitoring battery health and implementing energy-saving protocols.
+Multiple tests were conducted on the competition track to fine-tune the timing and sensor-based decisions. These tests allowed for optimizing the robot's performance, ensuring it successfully completed both rounds of the challenge.
 
-Data Logging and Analysis: The robot is equipped with a data logging system that records sensor data and performance metrics. This data is analyzed to refine our strategies and improve the robot's efficiency in subsequent runs.
+## Justification of Technical Decisions
 
-User Interface and Remote Control: We have developed a user-friendly interface and remote control capabilities, allowing us to monitor and control the robot's operations from a distance. This feature is particularly useful during testing and fine-tuning phases.
+- **Sensor Selection**: The distance and color sensors were chosen due to their ability to provide critical information needed for navigation and obstacle avoidance.
+- **Navigation Algorithm**: A timing-based approach was chosen for square track navigation due to its simplicity and effectiveness in a controlled environment.
+- **Power Adjustments**: The traction and steering motors were carefully calibrated to ensure a balance between speed and precision.
 
+## Performance and Results
 
-### Future Goals
-As we continue to develop our skills and knowledge, we have set several future goals:
+During testing, the robot demonstrated the ability to successfully complete square track navigation and avoid obstacles based on color detection. Minor adjustments were made to the timing of turns and traction speed to improve alignment and precision in obstacle avoidance.
 
-Enhanced Autonomy: Improve the robot's autonomous capabilities to handle more complex environments and tasks without human intervention.
+## Project Planning and Management
 
-Integration with AI: Explore the integration of artificial intelligence to enhance the robot's learning and adaptive behaviors.
-
-Collaboration and Knowledge Sharing: Collaborate with other teams and share our findings to contribute to the broader community of autonomous vehicle enthusiasts and researchers.
-
-By continuously pushing the boundaries of what our robot can achieve, we aim to stay at the forefront of autonomous vehicle technology and inspire others to pursue innovation in this exciting field.
+The project was divided into several phases, including mechanical design, programming, testing, and adjustments. Each phase had specific milestones and was managed with a detailed timeline to ensure all tasks were completed within the allocated time. Team collaboration was key to the project's success, with each member responsible for a specific part of the development.
