@@ -1,94 +1,173 @@
-WRO Future Engineers Team V^3 Engineering Documentation
-====
+Aquí tienes la documentación en inglés:
 
-This repository contains engineering materials of a self-driven vehicle model participating in the WRO Future Engineers competition in the 2023 season. More information on each subcomponent of the robot is placed in the README.md files in each folder.
+---
 
-## Content
-* `build` contains documentation about our chassis and material choice
-* `electrical` contains schematic diagrams demonstrating the connections between different electromechanical components. It also includes the available datasheets for the aforementioned components, and it also has a markdown file explaining the reasoning for each component.
-* `models` contains the files used by 3D printers to produce the vehicle elements.
-* `photos` contains two folders where one contains the team photos and the other contains the robot photos
-* `src` contains the code of control software for all components that were programmed to participate in the competition
-* `strategy` contains documentation and diagrams explaining our approach to the problem
-* `video` contains the video.md file with the link to a video where the driving demonstration exists
+# Documentation for WRO Future Engineers Category - LEGO Robot Inventor
 
-## Rubric Requirements
-* `Mobility Management` is found in `build`, `electrical`, and `models`
-* `Power and Sense Management` is found in `electrical`
-* `Obstacle Management` is found in `strategy` and `src`
-* `Pictures - Team and Vehicle` is found in `photos`
-* `Performance Videos` is found in `video`
-* `Engineering Factor` is found in `build` and `README`
+## Introduction
+
+This document details the configuration and programming of a robot based on the LEGO Robot Inventor (51515) for the "Future Engineers" category of the World Robot Olympiad (WRO). The challenge consists of two rounds: the first requires the robot to move along a square track, while the second round involves the robot detecting and avoiding obstacles of different colors, adjusting its path based on the detected color.
+
+## Project Objective
+
+The objective of this project is to design, build, and program a robot capable of navigating a square track and, in a second round, detecting and avoiding obstacles based on color. This involves using sensors and implementing programming logic that enables the robot to make autonomous decisions during its course.
+
+## Challenge Description
+
+In the "Future Engineers" category of the WRO, participants must develop a robot capable of performing specific tasks in a controlled environment. The challenge is divided into two rounds:
+
+1. **Round 1: Square Track Navigation**  
+   The robot must follow a square track, maintaining correct alignment and turning at the corners of the track.
+
+2. **Round 2: Color-Based Obstacle Avoidance**  
+   The robot must be able to detect green and red obstacles. Depending on the obstacle color, the robot should veer left (if the color is green) or right (if the color is red) before realigning and continuing its path.
+
+## Components and Hardware Configuration
+
+- **Main Controller**: MSHub (51515)
+- **Traction Motors**: Connected to ports C and D of the MSHub, responsible for forward and backward movement.
+- **Steering Motor**: Connected to port A, responsible for controlling the robot's direction.
+- **Distance Sensor**: Connected to port B, used to detect the proximity of obstacles.
+- **Color Sensor**: Connected to port F, used to identify the color of obstacles.
+
+## Mechanical Design
+
+The robot was designed using the LEGO Robot Inventor kit. The structure has been optimized to ensure stability and maneuverability on the competition track. The design includes a robust base to support the motors and sensors, focusing on keeping the center of gravity low to avoid tipping during turns.
+## Programming
+
+### Round 1: Square Track Navigation
+from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
+from mindstorms.control import wait_for_seconds, wait_until, Timer
+from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
+import math
+
+# Crear objetos
+hub = MSHub()
+motor_traction = Motor('C')
+motor_direction = Motor('B')
+sensor_ultrasonic = DistanceSensor('D')
+
+while True:
+    distance = sensor_ultrasonic.get_distance_cm()
+
+    if distance is not None and distance <= 30:
+        # Detener motor de tracción
+        motor_traction.stop()
+        wait_for_seconds(0.5)
+
+        # Girar motor de dirección a la izquierda (90 grados)
+        motor_direction.run_for_seconds(1, 100)
+        wait_for_seconds(0.5)
+        motor_direction.stop()
+
+        # Retroceder motor de tracción por 2 segundos
+        motor_traction.run_for_seconds(1.5, -35)
+        wait_for_seconds(0.5)
+        motor_traction.stop()
+
+        # Ajuste fino para realinear el robot hacia la izquierda
+        motor_direction.run_for_seconds(0.8, -80)# Este ajuste lo hará girar un poco hacia la derecha
+        wait_for_seconds(0.5)
+        motor_direction.stop()
+
+        # Avanzar motor de tracción por 2 segundos
+        motor_traction.run_for_seconds(1.7, 50)
+        wait_for_seconds(0.5)
+        motor_traction.stop()
+
+        # Realinear dirección completamente a la izquierda
+        motor_direction.run_for_seconds(0.5, 38)# Ajuste para alinearlo a la izquierda
+        wait_for_seconds(0.5)
+        motor_direction.stop()
+    else:
+        # Continuar avanzando si no hay objeto cercano
+        motor_traction.start_at_power(100)
+
+    # Espera un corto tiempo antes de verificar de nuevo
+    wait_for_seconds(0.1)
+
+### Round 2: Color-Based Obstacle Avoidance
+
+```python
+from mindstorms import MSHub, Motor, DistanceSensor, ColorSensor
+from mindstorms.control import wait_for_seconds
+
+# Create objects
+hub = MSHub()
+motor_traction = Motor('C')
+motor_direction = Motor('A')
+sensor_distance = DistanceSensor('B')
+sensor_color = ColorSensor('F')
+
+# Program to avoid obstacles based on detected color
+while True:
+    distance = sensor_distance.get_distance_cm()
+
+    if distance is not None and distance <= 30:
+        # Stop the traction motor
+        motor_traction.stop()
+        wait_for_seconds(0.5)
+
+        # Detect the color of the obstacle
+        color = sensor_color.get_color()
+
+        if color == 'green':
+            # Turn steering motor to the left
+            motor_direction.run_for_degrees(-90, 100)
+            wait_for_seconds(0.5)
+        elif color == 'red':
+            # Turn steering motor to the right
+            motor_direction.run_for_degrees(90, 100)
+            wait_for_seconds(0.5)
+
+        # Reverse traction motor to avoid the obstacle
+        motor_traction.run_for_seconds(1.5, -35)
+        wait_for_seconds(0.5)
+        motor_traction.stop()
+
+        # Realign direction forward
+        motor_direction.run_to_position(0, 'shortest path')
+        wait_for_seconds(0.5)
+
+        # Move traction motor forward to continue the path
+        motor_traction.start_at_power(50)
+        wait_for_seconds(2)
+        motor_traction.stop()
+    else:
+        # Continue moving if no object is nearby
+        motor_traction.start_at_power(75)
+
+    # Wait a short time before checking again
+    wait_for_seconds(0.1)
+```
 
 
-### Who We Are
-Team V^3 is an aspiring group of high school and university students who aim to be leaders in the future of autonomous vehicles. By taking the initiative to take part in the WRO Future Engineers challenge, we hope to gain experience in this field of engineering and problem-solving. We have been exposed to many robotic and logical challenges through Zebra Robotics, where we participated in many problems, such as WRO Robomissions, FIRST LEGO League, and VEX Robotics Competition. Our goals for this season are the following:
-- Gain knowledge in the field of autonomous vehicles
-- Expose ourselves to the nuances of software organization (i.e. Github)
-- Become proficient in the skills regarding electronic components
-- Learn how to coordinate and work as a team to solve the problem with innovation and creativity
 
-### Our Robot & Iterations
-Our team has designed a four-wheel rear-driver autonomous vehicle to complete the 2023 WRO Future Engineers challenge. When making our robot, we wanted to be able to rapidly iterate and make changes whenever they were needed. To accomplish this, our chassis and frame are almost entirely made of LEGO Technic parts and any remaining additions and part adapters (i.e., motor adapters, sensors, etc.) were designed on SolidWorks and Fusion 360 CAD Software and were printed using PLA filament on Anycubic Kobra 3D printers. Our current robot is a small and compact vehicle causing it to be highly maneuverable, allowing us to avoid obstacles effortlessly. This vehicle is powered by 300rpm 6V Micro Gear Box DC motors, allowing us to keep a compact and lightweight robot. To steer this chassis, we are using the ES08MA Metal Analog Servo, which has an ample amount of torque and strength. This allows us to make sharp turns whenever needed.
-Prior to making this robot, our team went through various different iterations and prototypes where we learnt many lessons about what our optimal robot should consist of. These lessons are the following:
-- Be small and compact
-- Effectively use sensors to identify our location and our ideal path
-- Speed is not the first priority for this challenges
-- Maneuverability is key to solving the obstacle challenge
+## Testing and Adjustments
 
-One of these was a larger robot with the usage of many more sensors and parts. However, its large nature at 30x20x30cm caused it to be difficult to maneuver and control. All of our efforts were in vain as we faced many hardships and problems when trying to program that robot. Our robot’s turning radius was too large, and it was unable to maneuver around the obstacles while our sensors were placed inconveniently and were unable to correctly and quickly construct an efficient path for our robot to take. We realized that many parts of our robot were unnecessary, especially the sheer size of it, and we ultimately decided to do a complete redesign which led to our final robot design. A summary of the reasons for our redesign can be found below:
+### Sensor Calibration
 
-|   | Pros | Cons |
-| - | ----------| ----------|
-| Old Robot | <ul><li>Allows for the attachment of larger sensors</li><li>Faster robot due to the larger, more powerful motors</li></ul> | <ul><li>Bad maneuverability due to size, causing a larger turning radius</li><li>Excessive use of unnecessary sensors</li><li>Not enough ports due to the sheer number of sensors</li></ul> |
-| New Robot | <ul><li>Smaller and more compact</li><li>Better maneuverability and sharper turning radius</li><li>More effective use of sensors and gets rid of any unnecessary parts</li></ul> | <ul><li>Slower speed due to less powerful motors</li><li>Restrictions to the size of sensors and parts we can use</li></ul> |
+- **Distance Sensor**: Tests were conducted to adjust the detection distance. The sensor was calibrated to detect obstacles at 30 cm, allowing the robot to react in time.
+- **Color Sensor**: Tests were performed under different lighting conditions to ensure accurate detection of green and red colors.
 
-| Old Robot | New Robot |
-| --------- | --------- |
-| <img src="https://drive.google.com/uc?id=1RlZYskqQS1ByvdWUU-VYG0KftsT1Hhgg" width="300" height="200" /> | <img src="https://drive.google.com/uc?id=1vywV_2QEjR2MpFHMMntFpNzQ3LMgPVq5" width="300" height="200" /> |
+### Movement Adjustments
 
-### Electrical Components
-Our chassis is controlled by the Arduino Nano microcontroller, which gets information from various sensors and uses said information to control the motors using an L298N motor controller board. The sensors that we are using for our vehicle are the following:
-- Pixycam 2.1
-- TCS34725 RGB Sensor
+Tests were carried out to calibrate the power and duration of turns as well as traction movements. Timing was adjusted according to the specific dimensions of the competition track.
 
-- HW-201 IR Sensors
-- GP2Y0A02YK0F IR Range Sensor
-- L3G4200D 3-Axis Gyro
+### Track Testing
 
-We use the Pixycam 2.1 to identify the locations of the obstacles and effectively avoid them. The TCS34725 RGB sensor tells the microcontroller when it reaches a corner. Both IR sensors are used to detect the walls on the side and on the front. Finally, we use the L3G4200D gyro to know which direction we are facing. More information about our robot’s electrical components can be found in the README file in the electrical folder.
+Multiple tests were conducted on the competition track to fine-tune the timing and sensor-based decisions. These tests allowed for optimizing the robot's performance, ensuring it successfully completed both rounds of the challenge.
 
-### Strategy and Code
-For the open challenge, our sensors are strategically placed in ways that allow us to detect walls at a 45° or less angle. This allows us to adjust accurately based on the distance from the wall, ultimately providing an optimal path to solve this challenge. In order to measure the number of laps we do, we use the RGB sensor to count the number of lines passed and then our robot stops after some time once 12 lines have been measured. This is implemented in the code by using the following lines:
+## Justification of Technical Decisions
 
-if (cornerCount==12)
+- **Sensor Selection**: The distance and color sensors were chosen due to their ability to provide critical information needed for navigation and obstacle avoidance.
+- **Navigation Algorithm**: A timing-based approach was chosen for square track navigation due to its simplicity and effectiveness in a controlled environment.
+- **Power Adjustments**: The traction and steering motors were carefully calibrated to ensure a balance between speed and precision.
 
-{
+## Performance and Results
 
-  endTime = millis()+5000;
-  
-}
+During testing, the robot demonstrated the ability to successfully complete square track navigation and avoid obstacles based on color detection. Minor adjustments were made to the timing of turns and traction speed to improve alignment and precision in obstacle avoidance.
 
-The cornerCount variable keeps track of how many corners the robot has passed during its run. The number is twelve as the square-shaped mat has 4 corners, and the robot must complete three laps.
-We have two strategies for the obstacle challenge. The first of which only focuses on one block and a time and avoids it. The other strategy involves planning a route for each stretch of the lap and getting the robot to follow that path. Some code for the first challenge is the following:
+## Project Planning and Management
 
-if (closeBlock.m_signature==1)
-
-{
-
-target = (207-closeBlock.m_y)/1.3-15;
-
-}else
-
-{
-
-target = 315.0-(207-closeBlock.m_y)/1.3+15;
-
-}
-
-err = -150.0*(closeBlock.m_x-target);
-
-This code gets the closest block and sets the target position of that block onto either side of the robot based on the color of the block.
-
-All in all, this robot is a statement to our team’s adaptability and problem solving skills as we were able to completely redesign and program a new and more compact robot after learning from our previous mistakes. We hope that this robot and our hard work will lead us to success and we look forward to competing!
-
+The project was divided into several phases, including mechanical design, programming, testing, and adjustments. Each phase had specific milestones and was managed with a detailed timeline to ensure all tasks were completed within the allocated time. Team collaboration was key to the project's success, with each member responsible for a specific part of the development.
